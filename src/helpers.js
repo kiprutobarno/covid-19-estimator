@@ -50,7 +50,8 @@ const getPercentage = (figure, quotient) => figure * quotient;
  * @param {number} infections
  * @returns {number}
  */
-const getProjectedSeverePositiveCases = (infections) => getPercentage(infections, 0.15);
+const getProjectedSeverePositiveCases = (infections) =>
+  Math.floor(getPercentage(infections, 0.15));
 
 /**
  * returns available hospital beds by requested time
@@ -59,7 +60,7 @@ const getProjectedSeverePositiveCases = (infections) => getPercentage(infections
  * @returns {number}
  */
 const getAvailableHospitalBedsByRequestedTime = (capacity, cases) => {
-  const availableBeds = getPercentage(capacity, 0.35);
+  const availableBeds = Math.floor(getPercentage(capacity, 0.35));
   return availableBeds - cases;
 };
 
