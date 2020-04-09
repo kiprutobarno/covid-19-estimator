@@ -37,4 +37,36 @@ const getInfectionsByTime = (currentlyInfected, time) => {
   return currentlyInfected * 2 ** numberOfSets;
 };
 
-export { getCurrentlyInfected, getInfectionsByTime, getDays };
+/**
+ * computes the percentage of a figure at a givem quotient
+ * @param {number} figure
+ * @param {number} quotient
+ * @returns {number}
+ */
+const getPercentage = (figure, quotient) => figure * quotient;
+
+/**
+ * computes projected estimation of severe postive cases
+ * @param {number} infections
+ * @returns {number}
+ */
+const getProjectedSeverePositiveCases = (infections) => Math.ceil(getPercentage(infections, 0.15));
+
+/**
+ * returns available hospital beds by requested time
+ * @param {number} capacity
+ * @param {number} cases
+ * @returns {number}
+ */
+const getAvailableHospitalBedsByRequestedTime = (capacity, cases) => {
+  const availableBeds = Math.ceil(getPercentage(capacity, 0.35));
+  return availableBeds - cases;
+};
+
+export {
+  getCurrentlyInfected,
+  getInfectionsByTime,
+  getDays,
+  getProjectedSeverePositiveCases,
+  getAvailableHospitalBedsByRequestedTime
+};
