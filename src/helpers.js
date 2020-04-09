@@ -26,6 +26,12 @@ const getCurrentlyInfected = (reportedCases, isSevere = false) => {
   return reportedCases * estimated;
 };
 
+const getNumber = (number) => {
+  let result = number.toString();
+  [result] = result.split('.');
+  return Number(result);
+};
+
 /**
  * computes an estimation of infected people after a given period of time(in days)
  * @param {number} currentlyInfected
@@ -33,7 +39,7 @@ const getCurrentlyInfected = (reportedCases, isSevere = false) => {
  * @returns {number}
  */
 const getInfectionsByTime = (currentlyInfected, time) => {
-  const numberOfSets = Number(time / 3);
+  const numberOfSets = getNumber(time / 3);
   return currentlyInfected * 2 ** numberOfSets;
 };
 
