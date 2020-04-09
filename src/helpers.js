@@ -1,16 +1,17 @@
 /**
  * normalize duration input into days
  * @param {string} duration
- * @param {number} days
+ * @param {number} figure
  * @returns {number}
  */
-const getDays = (duration, days) => {
-  if (duration === 'weeks') {
-    return days * 7;
-  } else if (duration === 'months') {
-    return days * 30;
-  } else {
-    return days;
+const getDays = (duration, figure) => {
+  switch (duration) {
+    case 'weeks':
+      return figure * 7;
+    case 'months':
+      return figure * 30;
+    default:
+      return figure;
   }
 };
 
