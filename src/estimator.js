@@ -1,4 +1,10 @@
-import { getCurrentlyInfected, getInfectionsByTime, getDays } from './helpers';
+import {
+  getCurrentlyInfected,
+  getInfectionsByTime,
+  getDays,
+  getProjectedSeverePositiveCases,
+  getAvailableHospitalBedsByRequestedTime
+} from './helpers';
 
 const input = {
   region: {
@@ -20,9 +26,10 @@ const input = {
  * @returns {object}
  */
 const covid19ImpactEstimator = (data = input) => {
-  const { periodType, reportedCases, timeToElapse } = data;
+  const { periodType, reportedCases, timeToElapse, totalHospitalBeds } = data;
 
   const days = getDays(periodType, timeToElapse);
+
   const currentlyInfected = getCurrentlyInfected(reportedCases);
   const infectionsByRequestedTime = getInfectionsByTime(
     currentlyInfected,
@@ -35,14 +42,34 @@ const covid19ImpactEstimator = (data = input) => {
     days
   );
 
+  const severeCasesByRequestedTime = getProjectedSeverePositiveCases(
+    infectionsByRequestedTime
+  );
+  const extremeSevereCasesByRequestedTime = getProjectedSeverePositiveCases(
+    severeInfectionByRequestedTime
+  );
+
+  const hospitalBedsByRequestedTime = getAvailableHospitalBedsByRequestedTime(
+    totalHospitalBeds,
+    severeCasesByRequestedTime
+  );
+  const severeHospitalBedsByRequestedTime = getAvailableHospitalBedsByRequestedTime(
+    totalHospitalBeds,
+    extremeSevereCasesByRequestedTime
+  );
+
   const impact = {
     currentlyInfected,
-    infectionsByRequestedTime
+    infectionsByRequestedTime,
+    severeCasesByRequestedTime,
+    hospitalBedsByRequestedTime
   };
 
   const severeImpact = {
     currentlyInfected: severeCurrentlyInfected,
-    infectionsByRequestedTime: severeInfectionByRequestedTime
+    infectionsByRequestedTime: severeInfectionByRequestedTime,
+    severeCasesByRequestedTime: extremeSevereCasesByRequestedTime,
+    hospitalBedsByRequestedTime: severeHospitalBedsByRequestedTime
   };
 
   return { data, impact, severeImpact };
