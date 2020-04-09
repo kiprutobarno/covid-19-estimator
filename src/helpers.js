@@ -34,7 +34,7 @@ const getCurrentlyInfected = (reportedCases, isSevere = false) => {
  */
 const getInfectionsByTime = (currentlyInfected, time) => {
   const numberOfSets = Number(time / 3);
-  return currentlyInfected * numberOfSets ** 2;
+  return currentlyInfected * 2 ** numberOfSets;
 };
 
 export { getCurrentlyInfected, getInfectionsByTime, getDays };
