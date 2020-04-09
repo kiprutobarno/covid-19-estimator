@@ -43,18 +43,14 @@ const getInfectionsByTime = (currentlyInfected, time) => {
  * @param {number} quotient
  * @returns {number}
  */
-const getPercentage = (figure, quotient) => {
-  return figure * quotient;
-};
+const getPercentage = (figure, quotient) => figure * quotient;
 
 /**
  * computes projected estimation of severe postive cases
  * @param {number} infections
  * @returns {number}
  */
-const getProjectedSeverePositiveCases = (infections) => {
-  return getPercentage(infections, 0.15);
-};
+const getProjectedSeverePositiveCases = (infections) => getPercentage(infections, 0.15);
 
 /**
  * returns available hospital beds by requested time
