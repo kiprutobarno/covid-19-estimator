@@ -34,7 +34,7 @@ const covid19ImpactEstimator = (data = input) => {
     reportedCases,
     timeToElapse,
     totalHospitalBeds,
-    region
+    region: { avgDailyIncomeInUSD, avgDailyIncomePopulation }
   } = data;
 
   const days = getDays(periodType, timeToElapse);
@@ -83,12 +83,14 @@ const covid19ImpactEstimator = (data = input) => {
 
   const dollarsInFlight = getEconomicImpact(
     infectionsByRequestedTime,
-    region,
+    avgDailyIncomePopulation,
+    avgDailyIncomeInUSD,
     days
   );
   const severeDollarsInFlight = getEconomicImpact(
     severeInfectionByRequestedTime,
-    region,
+    avgDailyIncomePopulation,
+    avgDailyIncomeInUSD,
     days
   );
 
