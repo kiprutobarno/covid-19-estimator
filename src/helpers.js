@@ -78,11 +78,10 @@ const getCasesForICUByRequestedTime = (infections) => Math.ceil(getPercentage(in
 const getCasesVentilatorsByTime = (infections) => Math.floor(getPercentage(infections, 0.02));
 
 const getEconomicImpact = (infections, region, duration) => {
-  const incomePopulation = Math.floor(
-    getPercentage(infections, region.avgDailyIncomePopulation)
-  );
-  const losses = incomePopulation * region.avgDailyIncomeInUSD * duration;
-  return Number(losses.toFixed(2));
+  const incomePopulation = region.avgDailyIncomePopulation;
+  const dailyIncome = region.avgDailyIncomeInUSD;
+  const incomeLosses = infections * incomePopulation * dailyIncome * duration;
+  return Number(incomeLosses.toFixed(2));
 };
 
 export {

@@ -5,8 +5,8 @@ import {
   getProjectedSeverePositiveCases,
   getAvailableHospitalBedsByRequestedTime,
   getCasesForICUByRequestedTime,
-  getCasesVentilatorsByTime
-  // getEconomicImpact
+  getCasesVentilatorsByTime,
+  getEconomicImpact
 } from './helpers';
 
 const input = {
@@ -33,8 +33,8 @@ const covid19ImpactEstimator = (data = input) => {
     periodType,
     reportedCases,
     timeToElapse,
-    totalHospitalBeds
-    // region
+    totalHospitalBeds,
+    region
   } = data;
 
   const days = getDays(periodType, timeToElapse);
@@ -81,16 +81,16 @@ const covid19ImpactEstimator = (data = input) => {
     severeInfectionByRequestedTime
   );
 
-  // const dollarsInFlight = getEconomicImpact(
-  //   infectionsByRequestedTime,
-  //   region,
-  //   days
-  // );
-  // const severeDollarsInFlight = getEconomicImpact(
-  //   severeInfectionByRequestedTime,
-  //   region,
-  //   days
-  // );
+  const dollarsInFlight = getEconomicImpact(
+    infectionsByRequestedTime,
+    region,
+    days
+  );
+  const severeDollarsInFlight = getEconomicImpact(
+    severeInfectionByRequestedTime,
+    region,
+    days
+  );
 
   const impact = {
     currentlyInfected,
@@ -98,8 +98,8 @@ const covid19ImpactEstimator = (data = input) => {
     severeCasesByRequestedTime,
     hospitalBedsByRequestedTime,
     casesForICUByRequestedTime,
-    casesForVentilatorsByRequestedTime
-    // dollarsInFlight
+    casesForVentilatorsByRequestedTime,
+    dollarsInFlight
   };
 
   const severeImpact = {
@@ -108,8 +108,8 @@ const covid19ImpactEstimator = (data = input) => {
     severeCasesByRequestedTime: extremeSevereCasesByRequestedTime,
     hospitalBedsByRequestedTime: severeHospitalBedsByRequestedTime,
     casesForICUByRequestedTime: severeCasesForICUByRequestedTime,
-    casesForVentilatorsByRequestedTime: severeCasesForVentilatorsByRequestedTime
-    // dollarsInFlight: severeDollarsInFlight
+    casesForVentilatorsByRequestedTime: severeCasesForVentilatorsByRequestedTime,
+    dollarsInFlight: severeDollarsInFlight
   };
 
   return { data, impact, severeImpact };
