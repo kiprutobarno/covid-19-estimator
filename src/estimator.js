@@ -83,7 +83,7 @@ const covid19ImpactEstimator = (data = input) => {
 
   const dollarsInFlight = getEconomicImpact(
     infectionsByRequestedTime,
-    region.avgDailyIncomeInUSD,
+    region,
     days
   );
   const severeDollarsInFlight = getEconomicImpact(
