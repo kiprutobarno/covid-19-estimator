@@ -68,13 +68,13 @@ const getAvailableHospitalBedsByRequestedTime = (capacity, cases) => {
  * @param {number} infections
  * @returns {number}
  */
-const getCasesForICUByRequestedTime= (infections) => Math.ceil(getPercentage(infections, 0.05));
+const getCasesForICUByRequestedTime = (infections) => Math.ceil(getPercentage(infections, 0.05));
 
 export {
   getCurrentlyInfected,
   getInfectionsByTime,
   getDays,
   getProjectedSeverePositiveCases,
-  getAvailableHospitalBedsByRequestedTime, 
+  getAvailableHospitalBedsByRequestedTime,
   getCasesForICUByRequestedTime
 };

@@ -27,7 +27,9 @@ const input = {
  * @returns {object}
  */
 const covid19ImpactEstimator = (data = input) => {
-  const { periodType, reportedCases, timeToElapse, totalHospitalBeds } = data;
+  const {
+    periodType, reportedCases, timeToElapse, totalHospitalBeds
+  } = data;
 
   const days = getDays(periodType, timeToElapse);
 
