@@ -69,7 +69,19 @@ const getAvailableHospitalBedsByRequestedTime = (capacity, cases) => {
  * @returns {number}
  */
 const getCasesForICUByRequestedTime = (infections) => Math.ceil(getPercentage(infections, 0.05));
+
+/**
+ * computes projected estimation of cases that require ventilators
+ * @param {number} infections
+ * @returns {number}
+ */
 const getCasesVentilatorsByTime = (infections) => Math.ceil(getPercentage(infections, 0.05));
+
+const getEconomicImpact = (infections, region, period) => {
+  const losses = getPercentage(infections, 0.65) * region * period;
+  return losses.toFixed(2);
+};
+
 export {
   getCurrentlyInfected,
   getInfectionsByTime,
@@ -77,5 +89,6 @@ export {
   getProjectedSeverePositiveCases,
   getAvailableHospitalBedsByRequestedTime,
   getCasesForICUByRequestedTime,
-  getCasesVentilatorsByTime
+  getCasesVentilatorsByTime,
+  getEconomicImpact
 };
