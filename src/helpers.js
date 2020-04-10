@@ -63,10 +63,18 @@ const getAvailableHospitalBedsByRequestedTime = (capacity, cases) => {
   return availableBeds - cases;
 };
 
+/**
+ * computes projected estimation of cases that require ICU facilities
+ * @param {number} infections
+ * @returns {number}
+ */
+const getCasesForICUByRequestedTime= (infections) => Math.ceil(getPercentage(infections, 0.05));
+
 export {
   getCurrentlyInfected,
   getInfectionsByTime,
   getDays,
   getProjectedSeverePositiveCases,
-  getAvailableHospitalBedsByRequestedTime
+  getAvailableHospitalBedsByRequestedTime, 
+  getCasesForICUByRequestedTime
 };
