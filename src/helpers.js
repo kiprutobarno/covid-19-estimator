@@ -81,7 +81,7 @@ const getEconomicImpact = (infections, region, duration) => {
   const incomePopulation = region.avgDailyIncomePopulation;
   const dailyIncome = region.avgDailyIncomeInUSD;
   const incomeLosses = infections * incomePopulation * dailyIncome * duration;
-  return Number(incomeLosses.toFixed(2));
+  return Number(incomeLosses);
 };
 
 export {
