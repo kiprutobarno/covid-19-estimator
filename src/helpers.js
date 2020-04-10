@@ -79,7 +79,7 @@ const getCasesVentilatorsByTime = (infections) => Math.ceil(getPercentage(infect
 
 const getEconomicImpact = (infections, region, period) => {
   const losses = getPercentage(infections, 0.65) * region * period;
-  return Math.round(losses * 1e2) / 1e2;
+  return Number(losses.toFixed(2));
 };
 
 export {
