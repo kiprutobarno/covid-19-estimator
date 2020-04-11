@@ -1,4 +1,7 @@
+import fs from 'fs';
+import path from 'path';
 import xml2js from 'xml2js';
+
 import covid19ImpactEstimator from './estimator';
 /**
  *
@@ -23,6 +26,16 @@ const routes = (app) => {
     const xmlBuilder = new xml2js.Builder();
     res.set('Content-Type', 'text/xml');
     res.status(200).send(xmlBuilder.buildObject(jsonObject));
+  });
+
+  app.get('/api/v1/on-covid-19/logs', (req, res) => {
+    try {
+      const fPath = path.join(__dirname, 'logs.txt');
+      const data = fs.readFileSync(fPath, 'utf8');
+      res.status(200).send(data);
+    } catch (error) {
+      throw error;
+    }
   });
 };
 
