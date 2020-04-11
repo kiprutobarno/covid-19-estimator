@@ -34,7 +34,7 @@ const routes = (app) => {
       const data = fs.readFileSync(fPath, 'utf8');
       res.status(200).send(data);
     } catch (error) {
-      throw error;
+      throw new Error('Error');
     }
   });
 };
