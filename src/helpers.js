@@ -38,19 +38,19 @@ const getInfectionsByTime = (currentlyInfected, time) => {
 };
 
 /**
- * computes the percentage of a figure at a given quotient
+ * computes the percentage of a figure at a givem quotient
  * @param {number} figure
  * @param {number} quotient
  * @returns {number}
  */
-const getPercentage = (figure, quotient) => Math.trunc(figure * quotient);
+const getPercentage = (figure, quotient) => figure * quotient;
 
 /**
  * computes projected estimation of severe postive cases
  * @param {number} infections
  * @returns {number}
  */
-const getProjectedSeverePositiveCases = (infections) => getPercentage(infections, 0.15);
+const getProjectedSeverePositiveCases = (infections) => Math.trunc(getPercentage(infections, 0.15));
 
 /**
  * returns available hospital beds by requested time
@@ -59,7 +59,7 @@ const getProjectedSeverePositiveCases = (infections) => getPercentage(infections
  * @returns {number}
  */
 const getAvailableHospitalBedsByRequestedTime = (capacity, cases) => {
-  const availableBeds = getPercentage(capacity, 0.35);
+  const availableBeds = Math.floor(getPercentage(capacity, 0.35));
   return availableBeds - cases;
 };
 
@@ -68,14 +68,14 @@ const getAvailableHospitalBedsByRequestedTime = (capacity, cases) => {
  * @param {number} infections
  * @returns {number}
  */
-const getCasesForICUByRequestedTime = (infections) => getPercentage(infections, 0.05);
+const getCasesForICUByRequestedTime = (infections) => Math.ceil(getPercentage(infections, 0.05));
 
 /**
  * computes projected estimation of cases that require ventilators
  * @param {number} infections
  * @returns {number}
  */
-const getCasesVentilatorsByTime = (infections) => getPercentage(infections, 0.02);
+const getCasesVentilatorsByTime = (infections) => Math.floor(getPercentage(infections, 0.02));
 
 const getEconomicImpact = (
   infections,
