@@ -27,7 +27,7 @@ const getCurrentlyInfected = (reportedCases, isSevere = false) => {
 };
 
 /**
- * computes an estimation of infected people after a given period of time(in days)
+ * computes an estimate of infected people after a given period of time(in days)
  * @param {number} currentlyInfected
  * @param {number} time
  * @returns {number}
@@ -38,7 +38,7 @@ const getInfectionsByTime = (currentlyInfected, time) => {
 };
 
 /**
- * computes the percentage of a figure at a givem quotient
+ * computes the percentage of a figure at a given quotient
  * @param {number} figure
  * @param {number} quotient
  * @returns {number}
@@ -46,14 +46,14 @@ const getInfectionsByTime = (currentlyInfected, time) => {
 const getPercentage = (figure, quotient) => figure * quotient;
 
 /**
- * computes projected estimation of severe postive cases
+ * computes an estimate of severe postive cases
  * @param {number} infections
  * @returns {number}
  */
 const getProjectedSeverePositiveCases = (infections) => Math.ceil(getPercentage(infections, 0.15));
 
 /**
- * returns available hospital beds by requested time
+ * computes an estimate of available hospital beds at a requested time
  * @param {number} capacity
  * @param {number} cases
  * @returns {number}
@@ -63,10 +63,45 @@ const getAvailableHospitalBedsByRequestedTime = (capacity, cases) => {
   return availableBeds - cases;
 };
 
+/**
+ * computes an estimate of severe postive cases that require ICU care
+ * @param {number} infections
+ * @returns {number}
+ */
+const getCasesForICUByRequestedTime = (infections) => Math.ceil(getPercentage(infections, 0.05));
+
+/**
+ * computes an estimate of severe positive cases that require ventilators
+ * @param {number} infections
+ * @returns {number}
+ */
+const getCasesVentilatorsByTime = (infections) => Math.floor(getPercentage(infections, 0.02));
+
+/**
+ * computes an estimate of daily financial loses to the economy
+ * @param {number} infections
+ * @param {number} workingPopulation
+ * @param {number} dailyIncome
+ * @param {number} duration
+ * @returns {number}
+ */
+const getEconomicImpact = (
+  infections,
+  workingPopulation,
+  dailyIncome,
+  duration
+) => {
+  const result = (infections * workingPopulation * dailyIncome) / duration;
+  return Math.trunc(result);
+};
+
 export {
   getCurrentlyInfected,
   getInfectionsByTime,
   getDays,
   getProjectedSeverePositiveCases,
-  getAvailableHospitalBedsByRequestedTime
+  getAvailableHospitalBedsByRequestedTime,
+  getCasesForICUByRequestedTime,
+  getCasesVentilatorsByTime,
+  getEconomicImpact
 };

@@ -3,7 +3,10 @@ import {
   getInfectionsByTime,
   getDays,
   getProjectedSeverePositiveCases,
-  getAvailableHospitalBedsByRequestedTime
+  getAvailableHospitalBedsByRequestedTime,
+  getCasesForICUByRequestedTime,
+  getCasesVentilatorsByTime,
+  getEconomicImpact
 } from './helpers';
 
 const input = {
@@ -21,13 +24,17 @@ const input = {
 };
 
 /**
- * returns an estimate of novel COVID-19 impact on people
+ * returns an estimate of novel COVID-19 impact and severe impact on people
  * @param {object} data
  * @returns {object}
  */
 const covid19ImpactEstimator = (data = input) => {
   const {
-    periodType, reportedCases, timeToElapse, totalHospitalBeds
+    periodType,
+    reportedCases,
+    timeToElapse,
+    totalHospitalBeds,
+    region: { avgDailyIncomeInUSD, avgDailyIncomePopulation }
   } = data;
 
   const days = getDays(periodType, timeToElapse);
@@ -60,18 +67,51 @@ const covid19ImpactEstimator = (data = input) => {
     extremeSevereCasesByRequestedTime
   );
 
+  const casesForICUByRequestedTime = getCasesForICUByRequestedTime(
+    infectionsByRequestedTime
+  );
+  const severeCasesForICUByRequestedTime = getCasesForICUByRequestedTime(
+    severeInfectionByRequestedTime
+  );
+
+  const casesForVentilatorsByRequestedTime = getCasesVentilatorsByTime(
+    infectionsByRequestedTime
+  );
+  const severeCasesForVentilatorsByRequestedTime = getCasesVentilatorsByTime(
+    severeInfectionByRequestedTime
+  );
+
+  const dollarsInFlight = getEconomicImpact(
+    infectionsByRequestedTime,
+    avgDailyIncomePopulation,
+    avgDailyIncomeInUSD,
+    days
+  );
+  const severeDollarsInFlight = getEconomicImpact(
+    severeInfectionByRequestedTime,
+    avgDailyIncomePopulation,
+    avgDailyIncomeInUSD,
+    days
+  );
+
   const impact = {
     currentlyInfected,
     infectionsByRequestedTime,
     severeCasesByRequestedTime,
-    hospitalBedsByRequestedTime
+    hospitalBedsByRequestedTime,
+    casesForICUByRequestedTime,
+    casesForVentilatorsByRequestedTime,
+    dollarsInFlight
   };
 
   const severeImpact = {
     currentlyInfected: severeCurrentlyInfected,
     infectionsByRequestedTime: severeInfectionByRequestedTime,
     severeCasesByRequestedTime: extremeSevereCasesByRequestedTime,
-    hospitalBedsByRequestedTime: severeHospitalBedsByRequestedTime
+    hospitalBedsByRequestedTime: severeHospitalBedsByRequestedTime,
+    casesForICUByRequestedTime: severeCasesForICUByRequestedTime,
+    casesForVentilatorsByRequestedTime: severeCasesForVentilatorsByRequestedTime,
+    dollarsInFlight: severeDollarsInFlight
   };
 
   return { data, impact, severeImpact };
