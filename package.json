@@ -6,11 +6,16 @@
   "private": false,
   "scripts": {
     "lint": "eslint ./src/",
-    "serve": "node --experimental-modules --es-module-specifier-resolution=node ./src/server.js",
-    "start": "yarn run serve"
+    "dev": "nodemon --exec babel-node src/server.js",
+    "start": "yarn build && yarn run serve",
+    "serve": "node dist/server.js",
+    "build": "babel src --out-dir ./dist --source-maps"
   },
   "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.3",
@@ -18,8 +23,6 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
     "babel-jest": "^25.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -28,6 +31,5 @@
   },
   "browserslist": [
     "last 1 Chrome versions"
-  ],
-  "type": "module"
+  ]
 }
