@@ -4,7 +4,7 @@ import covid19ImpactEstimator from './estimator';
 
 const routes = Router();
 
-routes.post('/api/v1/on-covid-19', (req, res, next) => {
+routes.post('/api/v1/on-covid-19', (req, res) => {
   const payload = req.body;
   const data = covid19ImpactEstimator(payload);
   return res.json(data);
