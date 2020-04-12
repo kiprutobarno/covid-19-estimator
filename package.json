@@ -3,24 +3,25 @@
   "version": "1.0.0",
   "repository": "git@github.com:BuildforSDG-Cohort1-Assessment/covid-19-estimator-js.git",
   "license": "MIT",
+  "main": "./src/server.js",
   "private": false,
-  "main": "dist/server.js",
   "scripts": {
     "lint": "eslint ./src/",
     "dev": "nodemon --exec babel-node src/server.js",
-    "start": "npm build && npm run serve",
-    "serve": "node dist/server.js",
-    "build": "babel src --out-dir ./dist --source-maps"
+    "start": "yarn run serve",
+    "serve": "node --require @babel/register ./src/server.js"
   },
   "engines": {
     "node": "12.11.0",
-    "npm": "6.13.0"
+    "yarn": "1.22.4"
   },
   "dependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.9.5",
+    "@babel/register": "^7.9.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.3",
