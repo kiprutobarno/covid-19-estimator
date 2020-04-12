@@ -15,13 +15,18 @@ const routes = (app) => {
     res.status(200).send(covid19ImpactEstimator(payload));
   });
 
-  app.post('/api/v1/on-covid-19/json', (req, res) => {
-    const payload = req.body;
+  app.get('/api/v1/on-covid-19/', (req, res) => {
+    const payload = res.body;
     res.status(200).send(covid19ImpactEstimator(payload));
   });
 
-  app.post('/api/v1/on-covid-19/xml', (req, res) => {
-    const payload = req.body;
+  app.get('/api/v1/on-covid-19/json', (req, res) => {
+    const payload = res.body;
+    res.status(200).send(covid19ImpactEstimator(payload));
+  });
+
+  app.get('/api/v1/on-covid-19/xml', (req, res) => {
+    const payload = res.body;
     const jsonObject = covid19ImpactEstimator(payload);
     const xmlBuilder = new xml2js.Builder();
     res.set('Content-Type', 'text/xml');
