@@ -9,26 +9,12 @@ import {
   getEconomicImpact
 } from './helpers';
 
-const input = {
-  region: {
-    name: 'Africa',
-    avgAge: 19.7,
-    avgDailyIncomeInUSD: 5,
-    avgDailyIncomePopulation: 0.71
-  },
-  periodType: 'days',
-  timeToElapse: 58,
-  reportedCases: 674,
-  population: 66622705,
-  totalHospitalBeds: 1380614
-};
-
 /**
  * returns an estimate of novel COVID-19 impact and severe impact on people
  * @param {object} data
  * @returns {object}
  */
-const covid19ImpactEstimator = (data = input) => {
+const covid19ImpactEstimator = (data) => {
   const {
     periodType,
     reportedCases,
