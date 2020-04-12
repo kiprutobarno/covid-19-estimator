@@ -114,7 +114,7 @@ const covid19ImpactEstimator = (data = input) => {
     dollarsInFlight: severeDollarsInFlight
   };
 
-  return { data, estimate: { impact, severeImpact } };
+  return { data, impact, severeImpact };
 };
 
 export default covid19ImpactEstimator;
