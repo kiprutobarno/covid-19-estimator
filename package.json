@@ -11,6 +11,10 @@
     "serve": "node dist/server.js",
     "build": "babel src --out-dir ./dist --source-maps"
   },
+  "engines": {
+    "node": "12.11.0",
+    "yarn": "1.22.4"
+  },
   "dependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
