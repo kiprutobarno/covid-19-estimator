@@ -3,10 +3,9 @@ let logString = '';
 const outResponse = (date, req, status) => {
   const path = req.originalUrl;
 
-  const diff =
-    `${new Date() - date}`.length === 1
-      ? `0${new Date() - date}`
-      : `${new Date() - date}`;
+  const diff = `${new Date() - date}`.length === 1
+    ? `0${new Date() - date}`
+    : `${new Date() - date}`;
   logString += `${req.method} \t\t ${path} \t\t ${status} \t\t ${diff}ms\n`;
 };
 
