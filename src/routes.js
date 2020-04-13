@@ -1,28 +1,30 @@
-import xml2js from 'xml2js';
 import { Router } from 'express';
 import covid19ImpactEstimator from './estimator';
+import { inRequest, dataLog } from './logs';
 
 const routes = Router();
 
-routes.post('/', (req, res) => {
-  const payload = req.body;
-  const data = covid19ImpactEstimator(payload);
-  return res.status(201).json(data);
+const respond = (req, res) => {
+  const { date, outResponse } = req.params;
+
+  const data = covid19ImpactEstimator(req.body);
+
+  outResponse(date, req, 200);
+  return res.json(data);
+};
+
+routes.route('/').post(inRequest, respond);
+
+routes.route('/json').post(inRequest, respond);
+
+routes.route('/xml').post(inRequest, (req, res) => {
+  const { date, outResponse } = req.params;
+  const data = covid19ImpactEstimator(req.body);
+  res.set('Content-Type', 'application/xml');
+  outResponse(date, req, 200);
+  return res.send(json2xml(data));
 });
 
-routes.post('/json', (req, res) => {
-  const payload = req.body;
-  const data = covid19ImpactEstimator(payload);
-  return res.status(201).json(data);
-});
-
-routes.post('/xml', (req, res) => {
-  const payload = req.body;
-  const data = covid19ImpactEstimator(payload);
-  const xmlBuilder = new xml2js.Builder();
-  const xmlData = xmlBuilder.buildObject(data);
-  res.type('Content-Type', 'application/xml');
-  return res.status(201).send(xmlData);
-});
+routes.route('/logs').get(inRequest, dataLog);
 
 export default routes;
