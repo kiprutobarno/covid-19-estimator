@@ -6,11 +6,10 @@ const logPath = path.join(__dirname, './logs/', 'log.txt');
 const logFile = fs.createWriteStream(logPath, { flags: 'a' });
 
 if (fs.existsSync(logPath)) {
-  stream: logFile;
 } else {
   fs.mkdirSync(path.dirname(logPath));
-  fs.writeFileSync(logPath, { flags: 'wx' });
-  console.log('access.log created!');
+  logFile;
+  console.log('log file created');
 }
 
 const logger = morgan(
