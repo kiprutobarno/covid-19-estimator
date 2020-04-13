@@ -8,7 +8,7 @@ on:
 jobs:
   lint: 
     name: audit code style
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     strategy:
       matrix:
