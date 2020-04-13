@@ -5,20 +5,19 @@ module.exports = {
     node: true,
     jest: true
   },
-  extends: [
-    'airbnb-base',
-  ],
+  extends: ['airbnb-base'],
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
+    SharedArrayBuffer: 'readonly'
   },
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module',
+    sourceType: 'module'
   },
   rules: {
-    "comma-dangle": ["error", "never"],
+    'comma-dangle': ['error', 'never'],
     'no-console': 'off',
-    "no-param-reassign": ["error", { "props": false }]
-  },
+    'no-param-reassign': ['error', { props: false }],
+    radix: 'off'
+  }
 };

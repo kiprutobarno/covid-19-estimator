@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import json2xml from 'json2xml';
+import fs from 'fs';
+import path from 'path';
 import covid19ImpactEstimator from './estimator';
 
 const routes = Router();
@@ -21,6 +23,14 @@ routes.post('/xml', (req, res) => {
   const data = covid19ImpactEstimator(payload);
   res.set('Content-Type', 'application/xml');
   return res.send(json2xml(data));
+});
+
+routes.get('/logs', (req, res) => {
+  const logs = fs.readFileSync(path.join(__dirname, './logs/log.txt'), {
+    encoding: 'utf-8'
+  });
+  res.type('text/plain');
+  res.status(200).send(logs);
 });
 
 export default routes;
