@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import json2xml from 'json2xml';
 import covid19ImpactEstimator from './estimator';
 import { inRequest, dataLog } from './logs';
 
