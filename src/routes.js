@@ -30,7 +30,7 @@ routes.get('/logs', (req, res) => {
     encoding: 'utf-8'
   });
   res.type('text/plain');
-  res.status(200).send(logs);
+  return res.status(200).send(logs);
 });
 
 export default routes;
