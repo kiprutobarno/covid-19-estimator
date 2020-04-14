@@ -1,19 +1,25 @@
 import path from 'path';
-import { getTimeInMilliseconds, saveToFile } from './helpers';
+import { getTime, save } from './helpers';
 
-const logger = (request, response, next) => {
-  const { method, url } = request;
-  const { statusCode } = response;
+/**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ * @param {Object} next
+ * @description request logger object
+ */
+const logger = (req, res, next) => {
+  const { method, url } = req;
+  const { statusCode } = res;
   const startTime = process.hrtime();
-  const timeInMS = getTimeInMilliseconds(startTime).toLocaleString();
+  const timeTaken = getTime(startTime).toLocaleString();
   const message = `${method}\t\t${url}\t\t${statusCode}\t\t${Math.floor(
-    timeInMS
+    timeTaken
   )
     .toString()
     .padStart(2, '00')}ms`;
   const fPath = path.join(__dirname, 'logs.txt');
-
-  saveToFile(message, fPath);
+  save(message, fPath);
   next();
 };
 

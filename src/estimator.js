@@ -10,9 +10,10 @@ import {
 } from './helpers';
 
 /**
- * returns an estimate of novel COVID-19 impact and severe impact on people
+ *
  * @param {object} data
  * @returns {object}
+ * @description returns an estimate of novel COVID-19 impact on the population
  */
 const covid19ImpactEstimator = (data) => {
   const {
