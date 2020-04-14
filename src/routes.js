@@ -26,7 +26,7 @@ routes.post('/xml', (req, res) => {
 });
 
 routes.get('/logs', (req, res) => {
-  const logs = fs.readFileSync(path.join(__dirname, './logs/log.txt'), {
+  const logs = fs.readFileSync(path.join(__dirname, 'logs.txt'), {
     encoding: 'utf-8'
   });
   res.type('text/plain');

@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 /**
  * normalize duration input into days
  * @param {string} duration
@@ -50,7 +52,8 @@ const getPercentage = (figure, quotient) => figure * quotient;
  * @param {number} infections
  * @returns {number}
  */
-const getProjectedSeverePositiveCases = (infections) => Math.trunc(getPercentage(infections, 0.15));
+const getProjectedSeverePositiveCases = (infections) =>
+  Math.trunc(getPercentage(infections, 0.15));
 
 /**
  * computes an estimate of available hospital beds at a requested time
@@ -68,14 +71,16 @@ const getAvailableHospitalBedsByRequestedTime = (capacity, cases) => {
  * @param {number} infections
  * @returns {number}
  */
-const getCasesForICUByRequestedTime = (infections) => Math.trunc(getPercentage(infections, 0.05));
+const getCasesForICUByRequestedTime = (infections) =>
+  Math.trunc(getPercentage(infections, 0.05));
 
 /**
  * computes an estimate of severe positive cases that require ventilators
  * @param {number} infections
  * @returns {number}
  */
-const getCasesVentilatorsByTime = (infections) => Math.trunc(getPercentage(infections, 0.02));
+const getCasesVentilatorsByTime = (infections) =>
+  Math.trunc(getPercentage(infections, 0.02));
 
 /**
  * computes an estimate of daily financial loses to the economy
@@ -95,6 +100,21 @@ const getEconomicImpact = (
   return Math.trunc(result);
 };
 
+const getTimeInMilliseconds = (startTime) => {
+  const NS_PER_SEC = 1e9; // time in nano seconds
+  const NS_TO_MS = 1e6; // time in milli seconds
+  const timeDifference = process.hrtime(startTime);
+  return (timeDifference[0] * NS_PER_SEC + timeDifference[1]) / NS_TO_MS;
+};
+
+const saveToFile = (data, filename) => {
+  fs.appendFile(filename, `${data}\n`, (err) => {
+    if (err) {
+      throw new Error('The data could not be saved');
+    }
+  });
+};
+
 export {
   getCurrentlyInfected,
   getInfectionsByTime,
@@ -103,5 +123,7 @@ export {
   getAvailableHospitalBedsByRequestedTime,
   getCasesForICUByRequestedTime,
   getCasesVentilatorsByTime,
-  getEconomicImpact
+  getEconomicImpact,
+  getTimeInMilliseconds,
+  saveToFile
 };
